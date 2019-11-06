@@ -194,7 +194,7 @@ public class Table {
 	
 	public boolean doExit() {
 		
-		if( JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(frame, "Would you like to exit?", "Mastermind", JOptionPane.YES_OPTION)) {
+		if( JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(frame, "Would you like to exit?", "MasterMind", JOptionPane.YES_OPTION)) {
 			
 			return true;
 		}
