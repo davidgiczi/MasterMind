@@ -10,7 +10,9 @@ public class MasterMindLogic {
 	private Colors[] tippStore = new Colors[4];
 	private Boolean[] result = new Boolean[4];
 	private int numberOfColor = 6;
-
+	private Boolean isDifferentColors = true;
+	
+	
 	
 	public MasterMindLogic() {
 		
@@ -25,12 +27,14 @@ public class MasterMindLogic {
 	
 	
 
-	public Colors[] getTippStore() {
-		return tippStore;
+	public List<Colors> getColorStore() {
+		return colorStore;
 	}
 
 
-
+	public Colors[] getTippStore() {
+		return tippStore;
+	}
 
 
 	public void setTippStore(Colors[] tippStore) {
@@ -49,6 +53,19 @@ public class MasterMindLogic {
 	}
 	
 	
+
+	public Boolean getIsDifferentColors() {
+		return isDifferentColors;
+	}
+
+
+
+	public void setIsDifferentColors(Boolean isDifferentColors) {
+		this.isDifferentColors = isDifferentColors;
+	}
+
+
+
 	public void rand4NotDifferenetColors()	{
 		
 		colorStore = new ArrayList<>();
@@ -129,7 +146,7 @@ public class MasterMindLogic {
 	}
 
 
-	public void rand4DifferenetColors()	{
+	public void rand4DifferentColors()	{
 		
 		
 		colorStore = new ArrayList<>();

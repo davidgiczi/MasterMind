@@ -1,5 +1,6 @@
 package com.david.giczi.mastermind.app;
 
+
 import com.david.giczi.mastermind.view.Table;
 
 public class MastermindApp {
@@ -10,6 +11,7 @@ public class MastermindApp {
 		
 		Table table=new Table();
 		
+	
 	}
 		
 		

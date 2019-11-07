@@ -18,6 +18,7 @@ import com.david.giczi.mastermind.controller.ColorNumberListener;
 import com.david.giczi.mastermind.controller.DifferentColorListener;
 import com.david.giczi.mastermind.controller.ExitListener;
 import com.david.giczi.mastermind.controller.GameFieldsListener;
+import com.david.giczi.mastermind.controller.ShowThePatternListener;
 import com.david.giczi.mastermind.model.MasterMindLogic;
 
 
@@ -28,13 +29,21 @@ public class Table {
 	private JFrame frame= new JFrame();
 	private JButton[] gameFields = new JButton[44];
 	private JButton[] resultFields = new JButton[44];
-	private JCheckBox[] check = new JCheckBox[11];
+	private JCheckBox[] resultChecks = new JCheckBox[44];
+	private JCheckBox[] checkInput = new JCheckBox[11];
 	private MasterMindLogic logic = new MasterMindLogic();
 	
 	
 	public JFrame getFrame() {
 		return frame;
 	}
+	
+	
+	public JButton[] getGameFields() {
+		return gameFields;
+	}
+
+
 
 	public Table() {
 		
@@ -51,13 +60,14 @@ public class Table {
 		frame.setLocation(x, y);
 		
 		frame.setLayout(new GridLayout(1,2));
-		
+	
 		createMenuComponent();
+	
 		createRows();
-		
 		
 		frame.setVisible(true);
 		
+		logic.rand4DifferentColors();
 	}
 	
 	private void createRows() {
@@ -102,30 +112,38 @@ public class Table {
 			
 			if( i % 4 == 0) {
 				
-				check[counter] = new JCheckBox();
+				checkInput[counter] = new JCheckBox();
 				
-				check[counter].setBackground(new Color(165,124,0));
+				checkInput[counter].setBackground(new Color(165,124,0));
 				
 				if( counter == 0 ) {
 					
-					check[counter].setVisible(false);
+				checkInput[counter].setVisible(false);
 					
 				}
+			
+			rightPanel.add(checkInput[counter++]);
 				
-				rightPanel.add(check[counter++]);
-				
-			}
+		}
 			
 			resultFields[i] = new JButton();
+			resultChecks[i] = new JCheckBox();
 			
 			resultFields[i].setBackground(new Color(165,124,0));
 			resultFields[i].setEnabled(false);
 			
+			resultChecks[i].setBackground(new Color(165,124,0));
+			resultChecks[i].setEnabled(false);
+			
+			
 			if( i < 4 ) {
 				
 				resultFields[i].setVisible(false);
+				
 			}
 			
+			
+			resultFields[i].add(resultChecks[i]);
 			rightPanel.add(resultFields[i]);
 			
 			}	
@@ -143,7 +161,7 @@ public class Table {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu option = new JMenu("Options");
 		JMenu config = new JMenu("Config");
-		JMenu showResult = new JMenu("Show the Result");
+		JMenuItem showPattern = new JMenuItem("Show the Pattern");
 		JMenuItem newGame = new JMenuItem("New Game");
 		JMenuItem exit = new JMenuItem("Exit");
 		JMenu numberOfColors = new JMenu("Number of Colors");
@@ -172,21 +190,23 @@ public class Table {
 		option.add(config);
 		option.addSeparator();
 		option.add(newGame);
+		option.add(showPattern);
 		option.addSeparator();
 		option.add(exit);
 		menuBar.add(option);
-		menuBar.add(showResult);
+		
 		
 		exit.addActionListener(new ExitListener(this));
-		four.addActionListener(new ColorNumberListener(this, 4));
-		five.addActionListener(new ColorNumberListener(this, 5));
-		six.addActionListener(new ColorNumberListener(this, 6));
-		seven.addActionListener(new ColorNumberListener(this, 7));
-		eight.addActionListener(new ColorNumberListener(this, 8));
-		nine.addActionListener(new ColorNumberListener(this, 9));
-		ten.addActionListener(new ColorNumberListener(this, 10));
-		yes.addActionListener(new DifferentColorListener(this, "Yes"));
-		no.addActionListener(new DifferentColorListener(this, "No"));
+		four.addActionListener(new ColorNumberListener(this, logic, 4));
+		five.addActionListener(new ColorNumberListener(this, logic,  5));
+		six.addActionListener(new ColorNumberListener(this, logic, 6));
+		seven.addActionListener(new ColorNumberListener(this, logic, 7));
+		eight.addActionListener(new ColorNumberListener(this, logic, 8));
+		nine.addActionListener(new ColorNumberListener(this, logic, 9));
+		ten.addActionListener(new ColorNumberListener(this, logic, 10));
+		yes.addActionListener(new DifferentColorListener(this, logic, "Yes"));
+		no.addActionListener(new DifferentColorListener(this, logic, "No"));
+		showPattern.addActionListener(new ShowThePatternListener(this, logic));
 			
 		frame.setJMenuBar(menuBar);
 		
