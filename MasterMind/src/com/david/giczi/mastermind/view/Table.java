@@ -18,7 +18,9 @@ import com.david.giczi.mastermind.controller.ColorNumberListener;
 import com.david.giczi.mastermind.controller.DifferentColorListener;
 import com.david.giczi.mastermind.controller.ExitListener;
 import com.david.giczi.mastermind.controller.GameFieldsListener;
+import com.david.giczi.mastermind.controller.NewGameListener;
 import com.david.giczi.mastermind.controller.ShowThePatternListener;
+import com.david.giczi.mastermind.controller.TippCheckingListener;
 import com.david.giczi.mastermind.model.MasterMindLogic;
 
 
@@ -31,6 +33,7 @@ public class Table {
 	private JButton[] resultFields = new JButton[44];
 	private JCheckBox[] resultChecks = new JCheckBox[44];
 	private JCheckBox[] checkInput = new JCheckBox[11];
+	private JMenu configMenu;
 	private MasterMindLogic logic = new MasterMindLogic();
 	
 	
@@ -43,6 +46,14 @@ public class Table {
 		return gameFields;
 	}
 
+	
+	public JMenu getConfigMenu() {
+		return configMenu;
+	}
+	
+	public JCheckBox[] getCheckInput() {
+		return checkInput;
+	}
 
 
 	public Table() {
@@ -121,6 +132,11 @@ public class Table {
 				checkInput[counter].setVisible(false);
 					
 				}
+				else {
+					
+					checkInput[counter].addActionListener(new TippCheckingListener(this, logic, counter));
+					
+				}
 			
 			rightPanel.add(checkInput[counter++]);
 				
@@ -160,7 +176,7 @@ public class Table {
 		
 		JMenuBar menuBar = new JMenuBar();
 		JMenu option = new JMenu("Options");
-		JMenu config = new JMenu("Config");
+		      configMenu = new JMenu("Config");
 		JMenuItem showPattern = new JMenuItem("Show the Pattern");
 		JMenuItem newGame = new JMenuItem("New Game");
 		JMenuItem exit = new JMenuItem("Exit");
@@ -185,9 +201,9 @@ public class Table {
 		numberOfColors.add(eight);
 		numberOfColors.add(nine);
 		numberOfColors.add(ten);
-		config.add(diffColors);
-		config.add(numberOfColors);
-		option.add(config);
+		configMenu.add(diffColors);
+		configMenu.add(numberOfColors);
+		option.add(configMenu);
 		option.addSeparator();
 		option.add(newGame);
 		option.add(showPattern);
@@ -207,14 +223,15 @@ public class Table {
 		yes.addActionListener(new DifferentColorListener(this, logic, "Yes"));
 		no.addActionListener(new DifferentColorListener(this, logic, "No"));
 		showPattern.addActionListener(new ShowThePatternListener(this, logic));
+		newGame.addActionListener(new NewGameListener(this, logic));
 			
 		frame.setJMenuBar(menuBar);
 		
 	}
 	
-	public boolean doExit() {
+	public boolean decideMessage(String text) {
 		
-		if( JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(frame, "Would you like to exit?", "MasterMind", JOptionPane.YES_OPTION)) {
+		if( JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(frame, text, "MasterMind", JOptionPane.YES_OPTION)) {
 			
 			return true;
 		}
@@ -223,10 +240,49 @@ public class Table {
 		return false;
 	}
 	
+	
+	
+	public void informMessage(String text) {
+		
+		JOptionPane.showMessageDialog(frame, text , "MasterMind", JOptionPane.INFORMATION_MESSAGE);
+		
+	}
+	
+	
 	public void setTitle(String text) {
 		
 		frame.setTitle(text);
 		
 	}
+	
+	
+	public void init() {
+		
+		
+		configMenu.setEnabled( true );
+		
+
+		for ( int i=0; i < gameFields.length; i++) {
+			
+			gameFields[i].setBackground( new Color(165,124,0) );
+			
+			resultChecks[i].setSelected( false );
+			
+			resultChecks[i].setBackground( new Color(165,124,0) );
+			
+			resultChecks[i].setEnabled( false );
+			
+		}
+		
+		
+		for (JCheckBox check : checkInput) {
+			
+			check.setSelected(false);
+			
+		}
+		
+		
+	}
+	
 	
 }

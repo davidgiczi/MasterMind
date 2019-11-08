@@ -256,7 +256,8 @@ public class MasterMindLogic {
 	
 	public void controlInputColorFields() throws NotEnoughColorInputValueException {
 		
-		for (Colors color : colorStore) {
+		for (Colors color : tippStore) {
+			
 			
 			if(color == null) {
 				
@@ -296,6 +297,29 @@ public class MasterMindLogic {
 		
 	}
 
+	
+	public void init() {
+		
+		
+		if( isDifferentColors ) {
+			
+			rand4DifferentColors();
+		}
+		else {
+			
+			rand4NotDifferenetColors();
+			
+		}
+		
+		
+		for( int i= 0; i < tippStore.length; i++ ) {
+			
+			
+			tippStore[i] = null;
+			
+		}
+		
+	}
 	
 
 }

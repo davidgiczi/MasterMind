@@ -28,7 +28,8 @@ public class ColorNumberListener implements ActionListener {
 		logic.setNumberOfColor(colorNumber);
 		
 		setTitle();
-			
+		
+		logic.init();
 		
 	}
 

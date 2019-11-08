@@ -3,28 +3,33 @@ package com.david.giczi.mastermind.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.david.giczi.mastermind.model.MasterMindLogic;
 import com.david.giczi.mastermind.view.Table;
 
-public class ExitListener implements ActionListener {
+public class NewGameListener implements ActionListener {
 	
 	
+	
+	private MasterMindLogic logic;
 	private Table table;
 	
-	public ExitListener(Table table) {
-		
-		this.table = table;
-		
-	}
 	
+	public NewGameListener(Table table, MasterMindLogic logic) {
+		
+		this.logic = logic;
+		this.table = table;
+	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		
-		if( table.decideMessage("Would you like to exit?") ) {
-			
-			System.exit(0);
-		}
+		
+		logic.init();
+		table.init();
+		
+		
 		
 		
 	}

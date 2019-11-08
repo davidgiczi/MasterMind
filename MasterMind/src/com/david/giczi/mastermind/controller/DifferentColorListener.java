@@ -37,7 +37,8 @@ public class DifferentColorListener implements ActionListener {
 		}
 
 		setTitle();
-			
+		
+		logic.init();
 		
 	}
 	
