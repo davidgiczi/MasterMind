@@ -32,6 +32,12 @@ public class MasterMindLogic {
 	public List<Colors> getColorStore() {
 		return colorStore;
 	}
+	
+	
+	public void setColorStore(List<Colors> colorStore) {
+		this.colorStore = colorStore;
+	}
+
 
 
 	public Colors[] getTippStore() {
@@ -72,6 +78,13 @@ public class MasterMindLogic {
 	public int getRoundCounter() {
 		return roundCounter;
 	}
+	
+	
+
+	public void setRoundCounter(int roundCounter) {
+		this.roundCounter = roundCounter;
+	}
+
 
 
 	public void rand4NotDifferenetColors()	{
@@ -390,7 +403,7 @@ public class MasterMindLogic {
 		
 		for (Boolean field : resultStore ) {
 			
-			if( field == null || field != true ) {
+			if( field == null || !field) {
 				
 				return false;
 				

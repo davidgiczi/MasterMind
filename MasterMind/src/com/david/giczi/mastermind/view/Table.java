@@ -4,6 +4,8 @@ package com.david.giczi.mastermind.view;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -37,6 +39,9 @@ public class Table {
 	private JMenuItem exit;
 	private JMenuItem newGame;
 	private MasterMindLogic logic = new MasterMindLogic();
+	private List<JFrame> frameStore = new ArrayList<>();
+	private int cloneTableXposition = -40;
+	private int cloneTableYposition = -40;
 	
 	
 	public JFrame getFrame() {
@@ -92,13 +97,13 @@ public class Table {
 		logic.rand4DifferentColors();
 	}
 	
+	
 	private void createRows() {
 		
 		
 		JPanel leftPanel = new JPanel();
 		JPanel rightPanel = new JPanel();
 
-		
 		rightPanel.setBackground(new Color(165,124,0));
 		
 		leftPanel.setLayout(new GridLayout(11,4));
@@ -372,7 +377,15 @@ public class Table {
 		
 		String title = frame.getTitle();
 		
-		title = title.substring(0, title.length()-2);
+		if( roundCounter > 10 ) {
+			
+			title = title.substring(0, title.length()-3);
+		}
+		else {
+			
+			title = title.substring(0, title.length()-2);
+		}
+		
 		
 		if( roundCounter == 0 ) {
 			
@@ -380,7 +393,7 @@ public class Table {
 		}
 		else {
 			
-			frame.setTitle(title+" "+logic.getRoundCounter());
+			frame.setTitle( title+" "+logic.getRoundCounter() );
 			
 		}
 			
@@ -398,6 +411,60 @@ public class Table {
 		String newText = storeText[1].substring(0,18)+" "+yesNoOption;
 		
 		frame.setTitle(storeText[0]+","+newText+","+storeText[2]);
+		
+	}
+	
+	
+	public void createCloneTable() {
+		
+		JFrame cloneFrame = new JFrame(frame.getTitle());
+		JPanel cloneLeftPanel = new JPanel();
+		JPanel cloneRightPanel = new JPanel();
+		
+		cloneLeftPanel.setLayout(new GridLayout(11,4));
+		cloneRightPanel.setLayout(new GridLayout(11,5));
+		
+		cloneFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		cloneTableXposition += 50;
+		cloneTableYposition += 50;
+		
+		cloneFrame.setLocation(cloneTableXposition, cloneTableYposition);
+		
+		JMenuBar menuBar = new JMenuBar();
+		JMenu option = new JMenu("Options");
+		
+		menuBar.add(option);
+		
+		cloneFrame.setSize(500, 700);
+		
+		cloneFrame.setJMenuBar(menuBar);
+		
+		
+		cloneFrame.add(cloneLeftPanel);
+		cloneFrame.add(cloneRightPanel);
+		
+		cloneFrame.setVisible(true);
+		
+		frameStore.add(cloneFrame);
+		
+	}
+	
+	
+	public void destroyCloneTables() {
+		
+		
+		for (JFrame cloneFrame : frameStore) {
+			
+			cloneFrame.setVisible(false);
+			cloneFrame = null;
+			
+		}
+		
+		frameStore.clear();
+		
+		cloneTableXposition = -40;
+		cloneTableYposition = -40;
 		
 	}
 	
