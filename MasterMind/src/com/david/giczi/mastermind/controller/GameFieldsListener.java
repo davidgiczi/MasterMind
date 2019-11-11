@@ -29,6 +29,13 @@ public class GameFieldsListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		
+		
+		if ( logic.getTippStore()[ index % 4 ] == null ) {
+			
+			clickCounter = 0;
+		}
+		
+		
 		switch (clickCounter) {
 		
 		case 0:

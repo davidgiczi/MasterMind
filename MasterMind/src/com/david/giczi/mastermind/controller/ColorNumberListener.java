@@ -27,24 +27,14 @@ public class ColorNumberListener implements ActionListener {
 		
 		logic.setNumberOfColor(colorNumber);
 		
-		setTitle();
+		table.createTitleByColorNumber(colorNumber);
 		
 		logic.init();
+		table.init();
 		
+		table.createTitleByRoundNumber(0);
 	}
 
-	private void setTitle() {
-		
-		String text = table.getFrame().getTitle();
-		
-		String[] storeText = text.split(",");
-		
-		String newText = storeText[0].substring(0,20);
-		
-		table.setTitle(newText+" "+colorNumber+","+storeText[1]+","+storeText[2]);
-		
-	}
-	
 	
 	
 }

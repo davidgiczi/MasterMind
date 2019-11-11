@@ -36,25 +36,15 @@ public class DifferentColorListener implements ActionListener {
 			logic.setIsDifferentColors(false);	
 		}
 
-		setTitle();
+		table.createTitleByDifferentColorOption(yesNoOption);
 		
 		logic.init();
+		table.init();
+		
+		table.createTitleByRoundNumber(0);
 		
 	}
 	
-	
-	private void setTitle() {
-		
-		
-		String text = table.getFrame().getTitle();
-		
-		String[] storeText = text.split(",");
-		
-		String newText = storeText[1].substring(0,18)+" "+yesNoOption;
-		
-		table.setTitle(storeText[0]+","+newText+","+storeText[2]);
-		
-	}
 	
 	
 }

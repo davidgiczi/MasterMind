@@ -34,6 +34,8 @@ public class Table {
 	private JCheckBox[] resultChecks = new JCheckBox[44];
 	private JCheckBox[] checkInput = new JCheckBox[11];
 	private JMenu configMenu;
+	private JMenuItem exit;
+	private JMenuItem newGame;
 	private MasterMindLogic logic = new MasterMindLogic();
 	
 	
@@ -53,6 +55,15 @@ public class Table {
 	
 	public JCheckBox[] getCheckInput() {
 		return checkInput;
+	}
+	
+
+	public JMenuItem getExit() {
+		return exit;
+	}
+	
+	public JMenuItem getNewGame() {
+		return newGame;
 	}
 
 
@@ -93,19 +104,20 @@ public class Table {
 		leftPanel.setLayout(new GridLayout(11,4));
 		rightPanel.setLayout(new GridLayout(11,5));
 		
-		for(int i = 0; i < 44; i++) {
+		for(int i = 0; i < gameFields.length; i++) {
 			
 			
 			gameFields[i] = new JButton();
 			
-			gameFields[i].setBackground(new Color(165,124,0));
 			
 			if(i > 3) {
 				
+				gameFields[i].setBackground(new Color(165,124,0));
 				gameFields[i].addActionListener(new GameFieldsListener(logic, gameFields[i], i));
 			}
 			else {
 				
+				gameFields[i].setBackground(new Color(153,101,21));
 				gameFields[i].setEnabled(false);
 				
 			}
@@ -118,7 +130,7 @@ public class Table {
 		
 		int counter=0;
 		
-		for(int i = 0; i < 44; i++) {
+		for(int i = 0; i < resultFields.length; i++) {
 			
 			
 			if( i % 4 == 0) {
@@ -178,8 +190,8 @@ public class Table {
 		JMenu option = new JMenu("Options");
 		      configMenu = new JMenu("Config");
 		JMenuItem showPattern = new JMenuItem("Show the Pattern");
-		JMenuItem newGame = new JMenuItem("New Game");
-		JMenuItem exit = new JMenuItem("Exit");
+		      newGame = new JMenuItem("New Game");
+			  exit = new JMenuItem("Exit");
 		JMenu numberOfColors = new JMenu("Number of Colors");
 		JMenu diffColors = new JMenu("Different Colors");
 		JMenuItem yes = new JMenuItem("Yes");
@@ -229,7 +241,7 @@ public class Table {
 		
 	}
 	
-	public boolean decideMessage(String text) {
+	public boolean decidingWindow(String text) {
 		
 		if( JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(frame, text, "MasterMind", JOptionPane.YES_OPTION)) {
 			
@@ -242,7 +254,7 @@ public class Table {
 	
 	
 	
-	public void informMessage(String text) {
+	public void informingWindow(String text) {
 		
 		JOptionPane.showMessageDialog(frame, text , "MasterMind", JOptionPane.INFORMATION_MESSAGE);
 		
@@ -264,7 +276,19 @@ public class Table {
 
 		for ( int i=0; i < gameFields.length; i++) {
 			
-			gameFields[i].setBackground( new Color(165,124,0) );
+			
+			
+			if( i > 3 ) {
+				
+				gameFields[i].setBackground( new Color(165,124,0) );
+				gameFields[i].setEnabled(true);
+				 
+			}
+			else {
+				
+				gameFields[i].setBackground(new Color(153,101,21));
+				
+			}
 			
 			resultChecks[i].setSelected( false );
 			
@@ -277,6 +301,7 @@ public class Table {
 		
 		for (JCheckBox check : checkInput) {
 			
+			check.setEnabled(true);
 			check.setSelected(false);
 			
 		}
@@ -284,5 +309,96 @@ public class Table {
 		
 	}
 	
+	public void showTheResult(Boolean[] result, int rowIndex) {
+		
+		
+		int checkIndex = 4*rowIndex;
+		
+		
+		for ( int i = 0; i < result.length; i++ ) {
+			
+			
+			if( result[i] != null && result[i] ) {
+				
+				resultChecks[checkIndex].setEnabled(true);
+				resultChecks[checkIndex].doClick();
+				
+				
+			}
+			else if( result[i] != null && !result[i] ) {
+				
+				resultChecks[checkIndex].setEnabled(true);
+				
+			}
+			
+			
+			checkIndex++;
+			
+		}
+		
+	}
+	
+	public void disbledActualRow(int rowIndex) {
+		
+		
+		int fieldIndex = 4*rowIndex;
+	
+		for( int i=0; i < 4; i++ ) {
+			
+			gameFields[fieldIndex++].setEnabled(false);
+			
+		}
+		
+		checkInput[rowIndex].setEnabled(false);
+		
+	}
+	
+	
+	public void createTitleByColorNumber(int colorNumber) {
+		
+		String text = frame.getTitle();
+		
+		String[] storeText = text.split(",");
+		
+		String newText = storeText[0].substring(0,20);
+		
+		frame.setTitle(newText+" "+colorNumber+","+storeText[1]+","+storeText[2]);
+		
+	}
+	
+	
+	public void createTitleByRoundNumber(int roundCounter) {
+		
+		
+		String title = frame.getTitle();
+		
+		title = title.substring(0, title.length()-2);
+		
+		if( roundCounter == 0 ) {
+			
+			frame.setTitle(title+" -");
+		}
+		else {
+			
+			frame.setTitle(title+" "+logic.getRoundCounter());
+			
+		}
+			
+		
+		
+	}
+	
+	public void createTitleByDifferentColorOption(String yesNoOption) {
+		
+		
+		String text = frame.getTitle();
+		
+		String[] storeText = text.split(",");
+		
+		String newText = storeText[1].substring(0,18)+" "+yesNoOption;
+		
+		frame.setTitle(storeText[0]+","+newText+","+storeText[2]);
+		
+	}
 	
 }

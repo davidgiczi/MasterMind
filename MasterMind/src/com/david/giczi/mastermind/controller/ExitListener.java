@@ -21,7 +21,7 @@ public class ExitListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		
-		if( table.decideMessage("Would you like to exit?") ) {
+		if( table.decidingWindow("Would you like to exit?") ) {
 			
 			System.exit(0);
 		}

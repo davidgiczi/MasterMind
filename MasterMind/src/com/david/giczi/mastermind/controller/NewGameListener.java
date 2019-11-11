@@ -29,6 +29,7 @@ public class NewGameListener implements ActionListener {
 		logic.init();
 		table.init();
 		
+		table.createTitleByRoundNumber(0);
 		
 		
 		

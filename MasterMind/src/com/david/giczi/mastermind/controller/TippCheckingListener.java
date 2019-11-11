@@ -29,8 +29,7 @@ public class TippCheckingListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		
-		if(table.getCheckInput()[index].isSelected()) {
-			
+		
 			table.getConfigMenu().setEnabled(false);
 			
 			
@@ -43,28 +42,99 @@ public class TippCheckingListener implements ActionListener {
 				
 			} catch (NotEnoughColorInputValueException e1) {
 				
-				table.informMessage("Please, choose color for all (4) fields!");
+				table.informingWindow("Please, choose color for all (4) the fields!");
 				table.getCheckInput()[index].setSelected(false);
+				return;
+			}
+			
+			
+					
+			logic.evaluate();
+			
+			table.createTitleByRoundNumber( logic.getRoundCounter() );
+			
+			logic.orderResultStore();
+			
+			table.showTheResult(logic.getResultStore(), index);
+			
+			table.disbledActualRow(index);
+			
+			
+			if( logic.isWinner() ) {
+				
+				if( table.decidingWindow("Congratulations! Would you like to play a new game?")) {
+					
+					table.getNewGame().doClick();
+					
+				}
+				else {
+					
+	
+						table.getExit().doClick();
+						
+					
+					
+				}
+				
 				
 			}
 			
 			
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			if( logic.getRoundCounter() > 0 && logic.getRoundCounter() % 10 == 0 ) {
+				
+				
+			if(	table.decidingWindow("Would you like to continue the game?")) {
+				
+				
+				if( table.decidingWindow("Would you like to see the previous steps?")) {
+					
+					
+					
+					
+				}
+				else {
+					
+					
+					
+					
+					
+				}
+				
+			}
+			else {
+				
+				
+					if( table.decidingWindow("Would you like to play a new game?")) {
+						
+						
+						table.getNewGame().doClick();
+						
+					}
+					else {
+						
+						table.getExit().doClick();
+					
+						
+					}
+				
+				
 		}
-		
-		
-		
+				
+	}
+			
+			logic.initResultAndTippStore();
+			
+			
+			
 		
 	}
 
+	
+	
+	
+	
+	
+	
 }
