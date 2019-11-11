@@ -3,21 +3,25 @@ package com.david.giczi.mastermind.model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MasterMindLogic {
 	
 	
 	private List<Colors> colorStore;
 	private Colors[] tippStore = new Colors[4];
-	private Boolean[] result = new Boolean[4];
+	private Boolean[] resultStore = new Boolean[4];
 	private int numberOfColor = 6;
-
+	private Boolean isDifferentColors = true;
+	private int roundCounter = 0;
+	
+	
 	
 	public MasterMindLogic() {
 		
 		
-		for(int i=0; i < result.length; i++) {
+		for(int i=0; i < resultStore.length; i++) {
 			
-			result[i] = null;
+			resultStore[i] = null;
 			tippStore[i] = null;
 		}
 		
@@ -25,19 +29,23 @@ public class MasterMindLogic {
 	
 	
 
+	public List<Colors> getColorStore() {
+		return colorStore;
+	}
+
+
 	public Colors[] getTippStore() {
 		return tippStore;
 	}
-
-
-
-
-
-	public void setTippStore(Colors[] tippStore) {
-		this.tippStore = tippStore;
+	
+	
+	
+	public Boolean[] getResultStore() {
+		return resultStore;
 	}
 
-	
+
+
 	public int getNumberOfColor() {
 		return numberOfColor;
 	}
@@ -49,6 +57,23 @@ public class MasterMindLogic {
 	}
 	
 	
+
+	public Boolean getIsDifferentColors() {
+		return isDifferentColors;
+	}
+
+
+
+	public void setIsDifferentColors(Boolean isDifferentColors) {
+		this.isDifferentColors = isDifferentColors;
+	}
+
+
+	public int getRoundCounter() {
+		return roundCounter;
+	}
+
+
 	public void rand4NotDifferenetColors()	{
 		
 		colorStore = new ArrayList<>();
@@ -129,7 +154,7 @@ public class MasterMindLogic {
 	}
 
 
-	public void rand4DifferenetColors()	{
+	public void rand4DifferentColors()	{
 		
 		
 		colorStore = new ArrayList<>();
@@ -239,7 +264,8 @@ public class MasterMindLogic {
 	
 	public void controlInputColorFields() throws NotEnoughColorInputValueException {
 		
-		for (Colors color : colorStore) {
+		for (Colors color : tippStore) {
+			
 			
 			if(color == null) {
 				
@@ -266,19 +292,117 @@ public class MasterMindLogic {
 			
 			if(colorStore.get(i) == tippStore[i]) {
 				
-				result[i] = true;
+				resultStore[i] = true;
 				
 			}
 			else if(colorStore.contains(tippStore[i])) {
 				
-				result[i] = false;
+				resultStore[i] = false;
 			}
 			
 		}
 		
 		
+		roundCounter++;
+		
 	}
 
 	
+	public void init() {
+		
+		
+		if( isDifferentColors ) {
+			
+			rand4DifferentColors();
+		}
+		else {
+			
+			rand4NotDifferenetColors();
+			
+		}
+		
+		roundCounter = 0;
+		
+		initResultAndTippStore();
+		
+	}
+	
+	
+	
+	public void initResultAndTippStore() {
+		
+		for( int i= 0; i < resultStore.length; i++ ) {
+			
+			tippStore[i] = null;
+			resultStore[i] = null;
+			
+		}
+		
+	}
 
+	public void orderResultStore() {
+		
+		
+		for( int i = 0 ; i < resultStore.length-1; i++ ) {
+			
+			for( int j =i+1; j < resultStore.length; j++ ) {
+				
+				
+				if( resultStore[i] == null  &&  resultStore[j] != null ) {
+					
+					Boolean temp = resultStore[i];
+					resultStore[i] = resultStore[j];
+					resultStore[j] = temp;
+					
+					
+				}
+				
+			}
+			
+			
+		}
+		
+		
+		for( int i = 0 ; i < resultStore.length-1; i++ ) {
+			
+			for( int j =i+1; j < resultStore.length; j++ ) {
+				
+				
+				if( resultStore[i] != null  && resultStore[j] != null &&  !resultStore[i]  &&  resultStore[j] ) {
+					
+					Boolean temp = resultStore[i];
+					resultStore[i] = resultStore[j];
+					resultStore[j] = temp;
+					
+					
+				}
+				
+			}
+			
+			
+		}
+		
+		
+	}
+	
+	public boolean isWinner() {
+		
+		
+		for (Boolean field : resultStore ) {
+			
+			if( field == null || field != true ) {
+				
+				return false;
+				
+			}
+				
+			
+		}
+		
+		
+		return true;
+		
+	}
+	
+	
 }

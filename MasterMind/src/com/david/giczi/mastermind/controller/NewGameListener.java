@@ -6,35 +6,33 @@ import java.awt.event.ActionListener;
 import com.david.giczi.mastermind.model.MasterMindLogic;
 import com.david.giczi.mastermind.view.Table;
 
-public class ColorNumberListener implements ActionListener {
+public class NewGameListener implements ActionListener {
 	
 	
-	private Table table;
-	private int colorNumber;
+	
 	private MasterMindLogic logic;
+	private Table table;
 	
 	
-	
-	public ColorNumberListener(Table table, MasterMindLogic logic, int colorNumber) {
+	public NewGameListener(Table table, MasterMindLogic logic) {
 		
-		this.table = table;
 		this.logic = logic;
-		this.colorNumber = colorNumber;
+		this.table = table;
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		logic.setNumberOfColor(colorNumber);
 		
-		table.createTitleByColorNumber(colorNumber);
 		
 		logic.init();
 		table.init();
 		
 		table.createTitleByRoundNumber(0);
+		
+		
+		
 	}
 
-	
-	
 }
