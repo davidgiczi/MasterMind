@@ -4,6 +4,8 @@ package com.david.giczi.mastermind.view;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -37,6 +39,9 @@ public class Table {
 	private JMenuItem exit;
 	private JMenuItem newGame;
 	private MasterMindLogic logic = new MasterMindLogic();
+	private List<JFrame> frameStore = new ArrayList<>();
+	private int cloneTableXposition = -40;
+	private int cloneTableYposition = -40;
 	
 	
 	public JFrame getFrame() {
@@ -92,13 +97,13 @@ public class Table {
 		logic.rand4DifferentColors();
 	}
 	
+	
 	private void createRows() {
 		
 		
 		JPanel leftPanel = new JPanel();
 		JPanel rightPanel = new JPanel();
 
-		
 		rightPanel.setBackground(new Color(165,124,0));
 		
 		leftPanel.setLayout(new GridLayout(11,4));
@@ -372,7 +377,15 @@ public class Table {
 		
 		String title = frame.getTitle();
 		
-		title = title.substring(0, title.length()-2);
+		if( roundCounter > 10 ) {
+			
+			title = title.substring(0, title.length()-3);
+		}
+		else {
+			
+			title = title.substring(0, title.length()-2);
+		}
+		
 		
 		if( roundCounter == 0 ) {
 			
@@ -380,7 +393,7 @@ public class Table {
 		}
 		else {
 			
-			frame.setTitle(title+" "+logic.getRoundCounter());
+			frame.setTitle( title+" "+logic.getRoundCounter() );
 			
 		}
 			
@@ -398,6 +411,155 @@ public class Table {
 		String newText = storeText[1].substring(0,18)+" "+yesNoOption;
 		
 		frame.setTitle(storeText[0]+","+newText+","+storeText[2]);
+		
+	}
+	
+	
+	public void createCloneTable() {
+		
+		
+		JFrame cloneFrame = new JFrame(frame.getTitle());
+		JPanel cloneLeftPanel = new JPanel();
+		JPanel cloneRightPanel = new JPanel();
+		JButton[] cloneGameFields = new JButton[44];
+		JButton[] cloneResultFields = new JButton[44];
+		JCheckBox[] cloneResultChecks = new JCheckBox[44];
+		JCheckBox[] cloneCheckInput = new JCheckBox[11];
+		
+		cloneFrame.setLayout(new GridLayout(1,2));
+		cloneLeftPanel.setLayout(new GridLayout(11,4));
+		cloneRightPanel.setLayout(new GridLayout(11,5));
+		cloneRightPanel.setBackground(new Color(165,124,0));
+		
+		cloneFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		
+		cloneTableXposition += 50;
+		cloneTableYposition += 50;
+		
+		cloneFrame.setLocation(cloneTableXposition, cloneTableYposition);
+		
+		JMenuBar menuBar = new JMenuBar();
+		JMenu option = new JMenu("Options");
+		
+		menuBar.add(option);
+		
+		cloneFrame.setSize(500, 700);
+		
+		
+		for( int i=0; i < cloneGameFields.length; i++ ) {
+			
+			
+			cloneGameFields[i] = new JButton();
+			
+			
+			if( i > 3 ) {
+				
+				
+				cloneGameFields[i].setBackground(gameFields[i].getBackground());
+				
+				
+				
+			}
+			else {
+				
+				cloneGameFields[i].setBackground(new Color(153,101,21));
+				
+				
+			}
+			
+			cloneGameFields[i].setEnabled(false);
+			cloneLeftPanel.add(cloneGameFields[i]);
+				
+	}
+				
+		int counter=0;
+		
+		for( int i = 0; i < cloneResultFields.length; i++ ) {
+			
+			
+			if( i % 4 == 0) {
+				
+				cloneCheckInput[counter] = new JCheckBox();
+				
+				cloneCheckInput[counter].setBackground(new Color(165,124,0));
+				cloneCheckInput[counter].setSelected(true);
+				
+				if( counter == 0 ) {
+					
+				cloneCheckInput[counter].setVisible(false);
+					
+				}
+				
+			cloneCheckInput[counter].setEnabled(false);
+			cloneRightPanel.add(cloneCheckInput[counter++]);
+				
+		}
+			
+			cloneResultFields[i] = new JButton();
+			cloneResultChecks[i] = new JCheckBox();
+			
+			cloneResultFields[i].setBackground(new Color(165,124,0));
+			cloneResultChecks[i].setBackground(new Color(165,124,0));
+			
+			cloneResultFields[i].setEnabled(false);
+			
+			
+			if( resultChecks[i].isSelected() ) {
+				
+				
+				cloneResultChecks[i].setSelected(true);
+				
+			}
+			else if( resultChecks[i].isEnabled() ) {
+				
+				cloneResultChecks[i].setEnabled(true);
+				
+			}
+			else {
+				
+				cloneResultChecks[i].setEnabled(false);
+			}
+			
+			
+			if( i < 4 ) {
+				
+				cloneResultFields[i].setVisible(false);
+				
+			}
+			
+			
+			cloneResultFields[i].add(cloneResultChecks[i]);
+			cloneRightPanel.add(cloneResultFields[i]);
+			
+			}	
+		
+		
+		cloneFrame.setJMenuBar(menuBar);
+		
+		cloneFrame.add(cloneLeftPanel);
+		cloneFrame.add(cloneRightPanel);
+		
+		cloneFrame.setVisible(true);
+		
+		frameStore.add(cloneFrame);
+		
+	}
+	
+	
+	public void destroyCloneTables() {
+		
+		
+		for (JFrame cloneFrame : frameStore) {
+			
+			cloneFrame.setVisible(false);
+			cloneFrame = null;
+			
+		}
+		
+		frameStore.clear();
+		
+		cloneTableXposition = -40;
+		cloneTableYposition = -40;
 		
 	}
 	

@@ -24,11 +24,10 @@ public class NewGameListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		
-		
 		logic.init();
 		table.init();
 		
+		table.destroyCloneTables();
 		table.createTitleByRoundNumber(0);
 		
 		
