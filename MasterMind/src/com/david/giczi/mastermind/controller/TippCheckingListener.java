@@ -98,7 +98,7 @@ public class TippCheckingListener implements ActionListener {
 	private void optionsOfTheEndTheBoardCase() {
 		
 		
-		if( logic.getRoundCounter() > 0 && logic.getRoundCounter() % 10 == 0 ) {
+		if( logic.getRoundCounter() > 0 && logic.getRoundCounter() % 10 == 0  && !logic.isWinner()) {
 			
 			
 			if(	table.decidingWindow("Would you like to continue the game?")) {
