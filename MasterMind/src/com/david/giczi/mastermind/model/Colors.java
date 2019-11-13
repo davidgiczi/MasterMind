@@ -3,6 +3,7 @@ package com.david.giczi.mastermind.model;
 public enum Colors {
 
 	
+	BROWN,
 	BLUE,
 	GREEN,
 	GREY,

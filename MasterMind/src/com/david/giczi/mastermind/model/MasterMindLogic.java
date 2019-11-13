@@ -1,6 +1,7 @@
 package com.david.giczi.mastermind.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -22,7 +23,7 @@ public class MasterMindLogic {
 		for(int i=0; i < resultStore.length; i++) {
 			
 			resultStore[i] = null;
-			tippStore[i] = null;
+			tippStore[i] = Colors.BROWN;
 		}
 		
 	}
@@ -275,19 +276,6 @@ public class MasterMindLogic {
 		
 	}
 	
-	public void controlInputColorFields() throws NotEnoughColorInputValueException {
-		
-		for (Colors color : tippStore) {
-			
-			
-			if(color == null) {
-				
-				throw new NotEnoughColorInputValueException();
-			}
-		}
-		
-		
-	}
 	
 	public void addColorToTippStore(Colors tipp, int index) {
 		
@@ -297,29 +285,31 @@ public class MasterMindLogic {
 			
 	}
 	
-	
+
 	public void evaluate() {
 		
-		
-		for(int i=0; i < colorStore.size(); i++) {
 			
-			if(colorStore.get(i) == tippStore[i]) {
-				
-				resultStore[i] = true;
-				
-			}
-			else if(colorStore.contains(tippStore[i])) {
-				
-				resultStore[i] = false;
-			}
+		for( int i = 0; i < colorStore.size(); i++ ) {
 			
-		}
-		
-		
-		roundCounter++;
+				
+				if( colorStore.get(i) == tippStore[i] ) {
+					
+					resultStore[i] = true;
+				}	
+				
+				else if( colorStore.contains( tippStore[i] )) {
+					
+					resultStore[i] = false;
+					
+			}
+				
+				
+		}		
+
+	roundCounter++;
 		
 	}
-
+	
 	
 	public void init() {
 		
@@ -346,7 +336,7 @@ public class MasterMindLogic {
 		
 		for( int i= 0; i < resultStore.length; i++ ) {
 			
-			tippStore[i] = null;
+			tippStore[i] = Colors.BROWN;
 			resultStore[i] = null;
 			
 		}

@@ -375,30 +375,23 @@ public class Table {
 	public void createTitleByRoundNumber(int roundCounter) {
 		
 		
-		String title = frame.getTitle();
+		String text = frame.getTitle();
 		
-		if( roundCounter > 10 ) {
-			
-			title = title.substring(0, title.length()-3);
-		}
-		else {
-			
-			title = title.substring(0, title.length()-2);
-		}
+		String[] storeText = text.split(",");
+		
+		String newText = storeText[0]+","+storeText[1]+","+storeText[2].substring(0, 7);
 		
 		
 		if( roundCounter == 0 ) {
 			
-			frame.setTitle(title+" -");
+			frame.setTitle( newText+" -" );
 		}
 		else {
 			
-			frame.setTitle( title+" "+logic.getRoundCounter() );
+			frame.setTitle( newText+" "+logic.getRoundCounter() );
 			
 		}
 			
-		
-		
 	}
 	
 	public void createTitleByDifferentColorOption(String yesNoOption) {
