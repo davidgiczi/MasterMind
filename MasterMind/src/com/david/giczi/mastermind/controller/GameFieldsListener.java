@@ -30,7 +30,7 @@ public class GameFieldsListener implements ActionListener {
 		
 		
 		
-		if ( logic.getTippStore()[ index % 4 ] == null ) {
+		if ( logic.getTippStore()[ index % 4 ] == Colors.BROWN ) {
 			
 			clickCounter = 0;
 		}

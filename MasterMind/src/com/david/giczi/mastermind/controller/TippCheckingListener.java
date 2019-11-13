@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.david.giczi.mastermind.model.Colors;
 import com.david.giczi.mastermind.model.MasterMindLogic;
-import com.david.giczi.mastermind.model.NotEnoughColorInputValueException;
 import com.david.giczi.mastermind.view.Table;
 
 public class TippCheckingListener implements ActionListener {
@@ -34,23 +33,6 @@ public class TippCheckingListener implements ActionListener {
 		
 			table.getConfigMenu().setEnabled(false);
 			
-			
-			
-			try {
-				
-				
-				logic.controlInputColorFields();
-				
-				
-			} catch (NotEnoughColorInputValueException e1) {
-				
-				table.informingWindow("Please, choose color for all (4) the fields!");
-				table.getCheckInput()[index].setSelected(false);
-				return;
-			}
-			
-			
-					
 			logic.evaluate();
 			
 			table.createTitleByRoundNumber( logic.getRoundCounter() );
