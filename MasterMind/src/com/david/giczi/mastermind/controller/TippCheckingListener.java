@@ -29,9 +29,10 @@ public class TippCheckingListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		
-		
-			table.getConfigMenu().setEnabled(false);
+	
+			table.inactivateConfigMenu();
+			
+			table.activateNextRow(index);
 			
 			logic.evaluate();
 			
@@ -41,11 +42,11 @@ public class TippCheckingListener implements ActionListener {
 			
 			table.showTheResult(logic.getResultStore(), index);
 			
-			table.disbledActualRow(index);
+			table.inactivateActualRow(index);
 			
 			optionsOfRightSolutionCase();
 			
-			optionsOfTheEndTheBoardCase();
+			optionsOfTheEndOfTheBoardCase();
 			
 			logic.initResultAndTippStore();
 			
@@ -77,7 +78,7 @@ public class TippCheckingListener implements ActionListener {
 		
 	}
 	
-	private void optionsOfTheEndTheBoardCase() {
+	private void optionsOfTheEndOfTheBoardCase() {
 		
 		
 		if( logic.getRoundCounter() > 0 && logic.getRoundCounter() % 10 == 0  && !logic.isWinner()) {

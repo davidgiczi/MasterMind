@@ -123,15 +123,19 @@ public class Table {
 			else {
 				
 				gameFields[i].setBackground(new Color(153,101,21));
-				gameFields[i].setEnabled(false);
-				
 			}
+			
+			gameFields[i].setEnabled(false);
+			
 			
 			leftPanel.add(gameFields[i]);
 				
 			}
 		
-		
+		gameFields[4].setEnabled(true);
+		gameFields[5].setEnabled(true);
+		gameFields[6].setEnabled(true);
+		gameFields[7].setEnabled(true);
 		
 		int counter=0;
 		
@@ -152,7 +156,8 @@ public class Table {
 				else {
 					
 					checkInput[counter].addActionListener(new TippCheckingListener(this, logic, counter));
-					
+					checkInput[counter].setEnabled(false);
+					checkInput[1].setEnabled(true);
 				}
 			
 			rightPanel.add(checkInput[counter++]);
@@ -286,7 +291,6 @@ public class Table {
 			if( i > 3 ) {
 				
 				gameFields[i].setBackground( new Color(165,124,0) );
-				gameFields[i].setEnabled(true);
 				 
 			}
 			else {
@@ -294,6 +298,9 @@ public class Table {
 				gameFields[i].setBackground(new Color(153,101,21));
 				
 			}
+			
+			
+			gameFields[i].setEnabled(false);
 			
 			resultChecks[i].setSelected( false );
 			
@@ -303,14 +310,20 @@ public class Table {
 			
 		}
 		
+		gameFields[4].setEnabled(true);
+		gameFields[5].setEnabled(true);
+		gameFields[6].setEnabled(true);
+		gameFields[7].setEnabled(true);
 		
 		for (JCheckBox check : checkInput) {
 			
-			check.setEnabled(true);
+			check.setEnabled(false);
+			
 			check.setSelected(false);
 			
 		}
 		
+		checkInput[1].setEnabled(true);
 		
 	}
 	
@@ -343,7 +356,7 @@ public class Table {
 		
 	}
 	
-	public void disbledActualRow(int rowIndex) {
+	public void inactivateActualRow(int rowIndex) {
 		
 		
 		int fieldIndex = 4*rowIndex;
@@ -355,6 +368,39 @@ public class Table {
 		}
 		
 		checkInput[rowIndex].setEnabled(false);
+		
+	}
+	
+	
+	private void activateNextlRowFields(int rowIndex) {
+		
+		
+		int fieldIndex = 4*(rowIndex+1);
+	
+		for( int i=0; i < 4; i++ ) {
+			
+			gameFields[fieldIndex++].setEnabled(true);
+			
+		}
+		
+	}
+	
+	
+	public void inactivateConfigMenu() {
+		
+		configMenu.setEnabled(false);
+		
+	}
+	
+	public void activateNextRow(int rowIndex) {
+		
+		
+		if( checkInput.length-1 > rowIndex ) {
+			
+			checkInput[rowIndex+1].setEnabled(true);
+			activateNextlRowFields(rowIndex);
+		}
+		
 		
 	}
 	
