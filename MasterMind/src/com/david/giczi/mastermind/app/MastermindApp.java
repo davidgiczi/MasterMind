@@ -9,7 +9,12 @@ public class MastermindApp {
 	
 	public static void main(String[] args) {
 		
+		
+		
 		new Table();
+		
+		
+
 			
 	}
 		
