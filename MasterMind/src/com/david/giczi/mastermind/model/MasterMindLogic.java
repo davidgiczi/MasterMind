@@ -87,7 +87,7 @@ public class MasterMindLogic {
 
 
 
-	public void rand4NotDifferenetColors()	{
+	public void rand4NotDifferentColors()	{
 		
 		colorStore = new ArrayList<>();
 		
@@ -333,7 +333,7 @@ public class MasterMindLogic {
 		}
 		else {
 			
-			rand4NotDifferenetColors();
+			rand4NotDifferentColors();
 			
 		}
 		
