@@ -320,15 +320,18 @@ public class MasterMindLogic {
 			for ( int j = 0; j < taskList.size(); j++ ) {
 				
 				
-				if( taskList.get(i) != null && tippList.get(j) != null && tippList.get(i) == taskList.get(j) ){
+				
+				if( tippList.get(i) != null && taskList.get(j) != null && tippList.get(i) == taskList.get(j) ){
+					
 					
 					resultStore[j] = false;
 					taskList.set(j , null); 
-				
+					break;
 				}							
 											
 											
 			}
+			
 			
 		}
 		
