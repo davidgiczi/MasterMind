@@ -87,7 +87,7 @@ public class MasterMindLogic {
 
 
 
-	public void rand4NotDifferenetColors()	{
+	public void rand4NotDifferentColors()	{
 		
 		colorStore = new ArrayList<>();
 		
@@ -288,37 +288,55 @@ public class MasterMindLogic {
 	public void evaluate() {
 		
 		
-		for ( int i = 0; i < colorStore.size(); i++ ) {
+		List<Colors> taskList = new ArrayList<>();
+		List<Colors> tippList = new ArrayList<>();
+		
+		
+		
+		for (Colors color : colorStore) {
+			taskList.add(color);
+		}
+		
+		for (Colors color : tippStore) {
+			tippList.add(color);
+		}
+		
+		
+		
+		for ( int i = 0; i < taskList.size(); i++ ) {
 			
-			if( tippStore[i] == colorStore.get(i) ) {
+			if( taskList.get(i) == tippList.get(i) ) {
 			
 			resultStore[i] = true;
-			
+			taskList.set(i, null);
+			tippList.set(i, null);
 		}
 	}
 		
 		
-		
-	for ( int i = 0; i < colorStore.size(); i++ )	{
-		
-		for ( int j = 0; j < colorStore.size(); j++ )	{
+		for ( int i = 0; i < tippList.size(); i++ ) {
 			
-			if( resultStore[j] == null && tippStore[i] == colorStore.get(j) ) {
+
+			for ( int j = 0; j < taskList.size(); j++ ) {
 				
 				
-				resultStore[j] = false;
-				break;
+				
+				if( tippList.get(i) != null && taskList.get(j) != null && tippList.get(i) == taskList.get(j) ){
+					
+					
+					resultStore[j] = false;
+					taskList.set(j , null); 
+					break;
+				}							
+											
+											
 			}
 			
 			
-			
 		}
 		
 		
-
-	}
-				
-		
+	
 	roundCounter++;
 		
 	}
@@ -333,7 +351,7 @@ public class MasterMindLogic {
 		}
 		else {
 			
-			rand4NotDifferenetColors();
+			rand4NotDifferentColors();
 			
 		}
 		
